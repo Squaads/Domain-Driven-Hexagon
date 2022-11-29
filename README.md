@@ -14,4 +14,5 @@ Use at your own risk.
 - Add integration tests examples.
 - Add Swagger examples.
 - Document how to use this template to create microservices.
+- Fix the queryparser.
 - ...
