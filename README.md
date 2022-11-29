@@ -9,7 +9,7 @@ Use at your own risk.
 ## TODO :hammer:
 
 - Complete the README.md.
-- Add versioning.
+- Add release system.
 - Improve docker configuration.
 - Add integration tests examples.
 - Add Swagger examples.
