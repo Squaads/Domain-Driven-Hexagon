@@ -7,6 +7,8 @@ This is a work in progress. It is not ready for production.
 Use at your own risk.
 
 ## TODO :hammer:
+
+- Complete the README.md.
 - Add versioning.
 - Improve docker configuration.
 - Add integration tests examples.
