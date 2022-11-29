@@ -1,0 +1,13 @@
+{
+    "Comment with author and date": {
+        "prefix": ["/ac"],
+        "body": [
+            "/**",
+            " * date: $CURRENT_DATE/$CURRENT_MONTH/$CURRENT_YEAR",
+            " * author: ${1:author}",
+            " * comment: ${2:comment}",
+            " */"
+        ],
+        "description": "Creates a comment with date and author"
+    }
+}

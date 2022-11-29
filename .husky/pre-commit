@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+echo
+echo '🎨 Formating and checking staged files before committing!'
+echo
+npx lint-staged ||
+(
+  echo
+  echo '❌ Ooops! Formating and checking process has failed!';
+  echo
+  false;
+)
+echo
+echo '🚀 Formating and checking process has been successfully completed!'
+echo
