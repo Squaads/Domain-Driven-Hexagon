@@ -11,5 +11,5 @@ Use at your own risk.
 - Improve docker configuration.
 - Add integration tests examples.
 - Add Swagger examples.
-- Document how to use the template to create microservices.
+- Document how to use this template to create microservices.
 - ...
