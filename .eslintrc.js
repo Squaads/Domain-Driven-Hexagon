@@ -17,6 +17,7 @@ module.exports = {
         '@typescript-eslint/explicit-function-return-type': 'error',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/brace-style': 'off',
         'import/no-extraneous-dependencies': 'off',
         'import/extensions': 'off',
         'no-use-before-define': 'off',

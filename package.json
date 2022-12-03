@@ -2,10 +2,10 @@
     "name": "squaads-nest",
     "private": true,
     "version": "1.0.0",
-    "description": "Squaads Domain Driven Hexagon", 
+    "description": "Squaads Domain Driven Hexagon",
     "license": "MIT",
     "engines": {
-        "node": "^16",
+        "node": "^18",
         "npm": "^8"
     },
     "scripts": {
