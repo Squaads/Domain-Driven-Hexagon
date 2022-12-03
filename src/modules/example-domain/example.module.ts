@@ -7,10 +7,7 @@ import { ExampleRepository } from './infrastructure/adapters/persistence/example
 import { ExampleCollectionName, ExampleSchema } from './infrastructure/adapters/persistence/example.schema';
 import { ExampleController } from './infrastructure/adapters/rest/example.controller';
 
-const EXAMPLE_USE_CASES_PROVIDERS = [
-    CreateExample,
-    GetAllExamples
-];
+const EXAMPLE_USE_CASES_PROVIDERS = [CreateExample, GetAllExamples];
 @Module({
     imports: [
         MongooseModule.forFeature([

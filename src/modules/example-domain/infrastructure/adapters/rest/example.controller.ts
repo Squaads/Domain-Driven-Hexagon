@@ -10,9 +10,13 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { ClassTransformOptions } from 'class-transformer';
 import { SentryInterceptor } from 'src/lib/errors/sentry.interceptor';
-import { CreateExample } from 'src/modules/example-entity/application/use-cases/createExample.usecase';
-import { GetAllExamples } from 'src/modules/example-entity/application/use-cases/getAllExamples.usecase';
-import { CreateExampleDto } from 'src/modules/example-entity/application/dto/createExampleDto';
+import { CreateExampleDto } from 'src/modules/example-domain/application/dto/createExampleDto';
+import {
+    RestAdapterPortCreateExampleInterface,
+    RestAdapterPortGetAllExamplesInterface,
+} from 'src/modules/example-domain/application/ports/rest-adapter-port';
+import { CreateExample } from 'src/modules/example-domain/application/use-cases/createExample.usecase';
+import { GetAllExamples } from 'src/modules/example-domain/application/use-cases/getAllExamples.usecase';
 import { ExampleResponseDto } from '../../dto/ExampleResponseDto';
 
 const DEFAULT_SERIALIZER_OPTIONS: ClassTransformOptions = {
@@ -24,12 +28,14 @@ const DEFAULT_SERIALIZER_OPTIONS: ClassTransformOptions = {
 @Controller('example')
 @UseInterceptors(ClassSerializerInterceptor)
 @SerializeOptions(DEFAULT_SERIALIZER_OPTIONS)
-
 export class ExampleController {
-    constructor(
-        private createExampleUseCase: CreateExample,
-        private getAllExamplesUseCase: GetAllExamples,
-    ) {}
+    private createExampleUseCase: RestAdapterPortCreateExampleInterface;
+    private getAllExamplesUseCase: RestAdapterPortGetAllExamplesInterface;
+
+    constructor(createExampleUseCase: CreateExample, getAllExamplesUseCase: GetAllExamples) {
+        this.createExampleUseCase = createExampleUseCase;
+        this.getAllExamplesUseCase = getAllExamplesUseCase;
+    }
 
     @Get()
     async getAllExamples(): Promise<ExampleResponseDto[]> {

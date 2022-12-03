@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ExampleModule } from './modules/example-entity/example.module';
+import { ExampleModule } from './modules/example-domain/example.module';
 import { FirebaseService } from './modules/shared/application/services/firebase.service';
 
 @Module({
