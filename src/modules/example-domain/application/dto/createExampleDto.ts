@@ -1,6 +1,6 @@
+import { IsArray, IsBoolean, IsDate, IsNotEmpty, IsNumber, IsString, Max, Min } from '@nestjs/class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsArray, IsBoolean, IsDate, IsNotEmpty, IsNumber, IsString, Max, Min } from 'class-validator';
 
 export class CreateExampleDto {
     @ApiProperty()
