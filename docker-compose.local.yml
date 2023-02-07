@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+    api:
+        build:
+            target: dev
+        restart: always
+        volumes:
+            - ./:/srv/
+            - /srv/node_modules
+        ports:
+            - 3000:3000
+        env_file:
+            - ./src/config/local/.env.local
+
+    mongo:
+        image: mongo
+        restart: always
+        ports:
+          -  27017:27017
+        environment:
+            MONGO_INITDB_DATABASE: dev
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: password
+        volumes:
+            - ./src/config/local/mongo-docker-entrypoint-initdb.d/.:/docker-entrypoint-initdb.d/.
+        command: mongod --auth
