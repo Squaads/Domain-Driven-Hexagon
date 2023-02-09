@@ -42,6 +42,7 @@
         "@nestjs/swagger": "^6.1.3",
         "@sentry/node": "^7.19.0",
         "class-transformer": "^0.4.0",
+        "class-validator": "^0.14.0",
         "firebase": "^9.12.1",
         "mongoose": "^6.0.0",
         "reflect-metadata": "^0.1.13",
