@@ -10,7 +10,7 @@ import { FirebaseService } from './modules/shared/application/services/firebase.
             isGlobal: true,
         }),
         MongooseModule.forRoot(
-            `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@` +
+            `${process.env.MONGO_PROTOCOL}${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@` +
                 `${process.env.MONGO_CLUSTER}/${process.env.MODE}?retryWrites=true&w=majority`,
         ),
         ExampleModule,
