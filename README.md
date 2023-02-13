@@ -17,6 +17,15 @@ dependency inversion.
 
 ![dependency inversion](/documentation/assets/dependency-overview.png)
 
+## CORE SCRIPTS :hammer:
+
+-   `npm run start:local` - Runs the app in local mode inside Docker.
+-   `npm run start:dev` - Runs the app in development mode.
+-   `npm run start:stage` - Runs the app in stage mode.
+-   `npm run start:prod` - Runs the app in production mode.
+-   `npm run test:watch` - Runs the tests in watch mode.
+-   `npm run test:e2e` - Runs the e2r tests..
+
 ## DANGER :warning:
 
 This is a work in progress. It is not ready for production.
