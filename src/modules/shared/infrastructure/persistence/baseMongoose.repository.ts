@@ -43,7 +43,7 @@ export class BaseMongoose<T> implements IBaseRepository {
         const updatedEntity = this.model
             .findOneAndUpdate(
                 {
-                    id,
+                    _id: id,
                 } as any,
                 updateDto,
                 {
