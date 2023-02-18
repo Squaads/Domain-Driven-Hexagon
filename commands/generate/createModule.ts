@@ -4,9 +4,16 @@ import { readAllTSFiles } from './entity/read-all.tsfiles';
 import folderApplication from './folders/folder.application';
 import folderDomain from './folders/folder.domain';
 import folderInfrastructure from './folders/folder.infrastructure';
-import { createFile, createFolder, replaceExample } from './utils/utils';
+import {
+    addImportToModuleCode,
+    addModuleToEndOfImports,
+    createFile,
+    createFolder,
+    replaceExample,
+} from './utils/utils';
 
 const createModule = async (moduleName: string): Promise<void> => {
+    const moduleAppPath = path.join(__dirname, '../../src');
     let modulePath = path.join(__dirname, '../../src/modules/');
 
     await createFolder(modulePath, moduleName);
@@ -25,5 +32,7 @@ const createModule = async (moduleName: string): Promise<void> => {
         `${moduleName}.module.ts`,
         replaceExample(moduleName, allFileExample['example.module']),
     );
+    await addImportToModuleCode(moduleAppPath.concat('/app.module.ts'), moduleName);
+    await addModuleToEndOfImports(moduleAppPath.concat('/app.module.ts'), moduleName);
 };
 export default createModule;

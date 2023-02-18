@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ExampleModule } from './modules/example-domain/example.module';
 import { FirebaseService } from './modules/shared/application/services/firebase.service';
 
+const MODULES = [];
 @Module({
     imports: [
         ConfigModule.forRoot({
@@ -14,6 +15,7 @@ import { FirebaseService } from './modules/shared/application/services/firebase.
                 `${process.env.MONGO_CLUSTER}/${process.env.MODE}?retryWrites=true&w=majority`,
         ),
         ExampleModule,
+        ...MODULES,
     ],
     providers: [FirebaseService],
 })

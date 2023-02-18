@@ -2,9 +2,9 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import * as yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import { AppService } from './app.service';
+import { CommandService } from './command.service';
 
-const appService = new AppService();
+const appService = new CommandService();
 
 yargs(hideBin(process.argv))
     .command(
