@@ -1,3 +1,4 @@
 {
-    "jest.jestCommandLine": "jest"
+    "jest.jestCommandLine": "jest",
+    "files.eol": "\n"
 }
