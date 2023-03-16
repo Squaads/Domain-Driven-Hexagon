@@ -1,0 +1,122 @@
+{
+    "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+    "schematics": {
+        "application": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/application/application.factory#main",
+            "description": "Create a Nest application.",
+            "schema": "../node_modules/@nestjs/schematics/dist/lib/application/schema.json"
+        },
+        "angular-app": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/client-app/angular/angular.factory#main",
+            "description": "Create a new Angular application.",
+            "schema": "../node_modules/@nestjs/schematics/dist/lib/client-app/angular/schema.json"
+        },
+        "class": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/class/class.factory#main",
+            "description": "Create a new class.",
+            "schema": "../node_modules/@nestjs/schematics/dist/lib/class/schema.json",
+            "aliases": ["cl"]
+        },
+        "controller": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/controller/controller.factory#main",
+            "description": "Create a Nest controller.",
+            "schema": "../node_modules/@nestjs/schematics/dist/lib/controller/schema.json",
+            "aliases": ["co"]
+        },
+        "decorator": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/decorator/decorator.factory#main",
+            "description": "Create a Nest decorator.",
+            "schema": "../node_modules/@nestjs/schematics/dist/lib/decorator/schema.json",
+            "aliases": ["d"]
+        },
+        "filter": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/filter/filter.factory#main",
+            "description": "Create a Nest filter.",
+            "schema": "../node_modules/@nestjs/schematics/dist/lib/filter/schema.json",
+            "aliases": ["f"]
+        },
+        "gateway": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/gateway/gateway.factory#main",
+            "description": "Create a Nest gateway.",
+            "schema": "../node_modules/@nestjs/schematics/dist/lib/gateway/schema.json",
+            "aliases": ["ga"]
+        },
+        "guard": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/guard/guard.factory#main",
+            "description": "Create a Nest guard.",
+            "schema": "../node_modules/@nestjs/schematics/dist/lib/guard/schema.json",
+            "aliases": ["gu"]
+        },
+        "interceptor": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/interceptor/interceptor.factory#main",
+            "description": "Create a Nest interceptor.",
+            "schema": "../node_modules/@nestjs/schematics/dist/lib/interceptor/schema.json",
+            "aliases": ["itc"]
+        },
+        "interface": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/interface/interface.factory#main",
+            "description": "Create a Nest interface.",
+            "schema": "../node_modules/@nestjs/schematics/dist/lib/interface/schema.json",
+            "aliases": ["itf"]
+        },
+        "middleware": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/middleware/middleware.factory#main",
+            "description": "Create a Nest middleware.",
+            "schema": "../node_modules/@nestjs/schematics/dist/lib/middleware/schema.json",
+            "aliases": ["mi"]
+        },
+        "module": {
+            "factory": "./commands/module/module.factory#main",
+            "description": "Create a Nest module.",
+            "schema": "./commands/module/schema.json",
+            "aliases": ["mo"]
+        },
+        "pipe": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/pipe/pipe.factory#main",
+            "description": "Create a Nest pipe.",
+            "schema": "../node_modules/@nestjs/schematics/dist/lib/pipe/schema.json",
+            "aliases": ["pi"]
+        },
+        "provider": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/provider/provider.factory#main",
+            "description": "Create a Nest provider.",
+            "schema": "../node_modules/@nestjs/schematics/dist/lib/provider/schema.json",
+            "aliases": ["pr"]
+        },
+        "service": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/service/service.factory#main",
+            "description": "Create a Nest service.",
+            "schema": "../node_modules/@nestjs/schematics/dist/lib/service/schema.json",
+            "aliases": ["s"]
+        },
+        "resolver": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/resolver/resolver.factory#main",
+            "description": "Create a Nest resolver.",
+            "schema": "../node_modules/@nestjs/schematics/dist/lib/resolver/schema.json",
+            "aliases": ["r"]
+        },
+        "configuration": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/configuration/configuration.factory#main",
+            "description": "Create a Nest CLI configuration.",
+            "aliases": ["config"]
+        },
+        "library": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/library/library.factory#main",
+            "description": "Create a Nest library (mono-repo).",
+            "schema": "../node_modules/@nestjs/schematics/dist/lib/library/schema.json",
+            "aliases": ["lib"]
+        },
+        "sub-app": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/sub-app/sub-app.factory#main",
+            "description": "Create a Nest application (mono-repo).",
+            "schema": "../node_modules/@nestjs/schematics/dist/lib/sub-app/schema.json",
+            "aliases": ["app"]
+        },
+        "resource": {
+            "factory": "../node_modules/@nestjs/schematics/dist/lib/resource/resource.factory#main",
+            "description": "Create a Nest resource.",
+            "schema": "../node_modules/@nestjs/schematics/dist/lib/resource/schema.json",
+            "aliases": ["res"]
+        }
+    }
+}
