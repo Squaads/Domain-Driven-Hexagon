@@ -1,4 +1,4 @@
-export interface <%= classify(name) %>Interface {
+export interface <%= nameUpperCamelCase %>Interface {
     title: string;
     location: string;
     description: string;
@@ -13,7 +13,7 @@ export interface <%= classify(name) %>Interface {
     isPublished: boolean;
 }
 
-export enum <%= classify(name) %>StatusEnum {
+export enum <%= nameUpperCamelCase %>StatusEnum {
     IN_PROGRESS = 'in_progress',
     UNDER_REVIEW = 'under_review',
     IN_PORTFOLIO = 'in_portfolio',

@@ -1,9 +1,9 @@
-import { <%= classify(name) %>Model } from '../../infrastructure/adapters/persistence/<%= name %>.schema';
-import { Create<%= classify(name) %>Dto } from '../dto/create<%= nameFirstLetterToUpper %>Dto';
+import { <%= nameUpperCamelCase %>Model } from '../../infrastructure/adapters/persistence/<%= nameLowerCamelCase %>.schema';
+import { Create<%= nameUpperCamelCase %>Dto } from '../dto/create<%= nameUpperCamelCase %>Dto';
 
 export interface RepositoryPortCreateInterface {
-    create(<%= name %>: Create<%= classify(name) %>Dto): Promise<<%= classify(name) %>Model>;
+    create(<%= nameLowerCamelCase %>: Create<%= nameUpperCamelCase %>Dto): Promise<<%= nameUpperCamelCase %>Model>;
 }
 export interface RepositoryPortGetAllInterface {
-    findAll(): Promise<<%= classify(name) %>Model[]>;
+    findAll(): Promise<<%= nameUpperCamelCase %>Model[]>;
 }

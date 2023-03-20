@@ -1,6 +1,6 @@
-import { <%= classify(name) %>Interface, <%= classify(name) %>StatusEnum } from './<%= name %>.interface';
+import { <%= nameUpperCamelCase %>Interface, <%= nameUpperCamelCase %>StatusEnum } from './<%= nameLowerCamelCase %>.interface';
 
-export class <%= classify(name) %>Entity implements <%= classify(name) %>Interface {
+export class <%= nameUpperCamelCase %>Entity implements <%= nameUpperCamelCase %>Interface {
     title: string;
     location: string;
     description: string;
@@ -14,35 +14,35 @@ export class <%= classify(name) %>Entity implements <%= classify(name) %>Interfa
     projectCost: number;
     totalInvest: number;
 
-    constructor(partial: Partial<<%= classify(name) %>Entity>) {
+    constructor(partial: Partial<<%= nameUpperCamelCase %>Entity>) {
         Object.assign(this, partial);
     }
 
     get status(): string {
-        return this.get<%= classify(name) %>Status();
+        return this.get<%= nameUpperCamelCase %>Status();
     }
 
-    protected get<%= classify(name) %>Status(): string {
+    protected get<%= nameUpperCamelCase %>Status(): string {
         try {
             const currentDate = new Date().getTime();
             const startDate = new Date(this.startDate.setUTCHours(0, 0, 0, 0)).getTime();
             const endDate = new Date(this.endDate.setUTCHours(24, 0, 0, 0)).getTime();
 
-            if (startDate > endDate) return <%= classify(name) %>StatusEnum.UNKOWN;
+            if (startDate > endDate) return <%= nameUpperCamelCase %>StatusEnum.UNKOWN;
 
             if (currentDate >= startDate && currentDate <= endDate) {
-                return <%= classify(name) %>StatusEnum.IN_PROGRESS;
+                return <%= nameUpperCamelCase %>StatusEnum.IN_PROGRESS;
             }
             if (currentDate < startDate) {
-                return <%= classify(name) %>StatusEnum.UNDER_REVIEW;
+                return <%= nameUpperCamelCase %>StatusEnum.UNDER_REVIEW;
             }
             if (currentDate > endDate) {
-                return <%= classify(name) %>StatusEnum.IN_PORTFOLIO;
+                return <%= nameUpperCamelCase %>StatusEnum.IN_PORTFOLIO;
             }
 
-            return <%= classify(name) %>StatusEnum.UNKOWN;
+            return <%= nameUpperCamelCase %>StatusEnum.UNKOWN;
         } catch (error) {
-            return <%= classify(name) %>StatusEnum.UNKOWN;
+            return <%= nameUpperCamelCase %>StatusEnum.UNKOWN;
         }
     }
 }

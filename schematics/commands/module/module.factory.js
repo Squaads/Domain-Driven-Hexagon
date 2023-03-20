@@ -3,7 +3,8 @@ Object.defineProperty(exports, '__esModule', { value: true });
 exports.main = void 0;
 const core_1 = require('@angular-devkit/core');
 const schematics_1 = require('@angular-devkit/schematics');
-const formatting_1 = require('../../utils/formatting');
+const formatting_1 = require('@nestjs/schematics/dist/utils/formatting');
+const strings_1 = require('@angular-devkit/core/src/utils/strings');
 const module_declarator_1 = require('../../utils/module.declarator');
 const module_finder_1 = require('@nestjs/schematics/dist/utils/module.finder');
 const name_parser_1 = require('@nestjs/schematics/dist/utils/name.parser');
@@ -28,8 +29,10 @@ function transform(source) {
     target.type = 'module';
     const location = new name_parser_1.NameParser().parse(target);
     target.name = (0, formatting_1.normalizeToKebabOrSnakeCase)(location.name);
+	target.nameLowerCamelCase = (0, strings_1.camelize)(location.name);
+	target.nameSnakeCase = (0, strings_1.underscore)(location.name);
+	target.nameUpperCamelCase = (0,strings_1.classify)(location.name);
     target.path = (0, formatting_1.normalizeToKebabOrSnakeCase)(location.path);
-	target.nameFirstLetterToUpper = (0, formatting_1.firstLetterToUpperCase)(target.name);
     target.language = 'ts';
     return target;
 }

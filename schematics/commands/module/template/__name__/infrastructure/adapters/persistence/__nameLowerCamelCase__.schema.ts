@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
-import { <%= classify(name) %>Interface } from '../../../domain/<%= name %>.interface';
+import { <%= nameUpperCamelCase %>Interface } from '../../../domain/<%= nameLowerCamelCase %>.interface';
 
 @Schema({ timestamps: true })
-export class <%= classify(name) %>Model implements <%= classify(name) %>Interface {
+export class <%= nameUpperCamelCase %>Model implements <%= nameUpperCamelCase %>Interface {
     @Prop({
         required: true,
         maxlength: 20,
@@ -79,6 +79,6 @@ export class <%= classify(name) %>Model implements <%= classify(name) %>Interfac
     isPublished: boolean;
 }
 
-export type <%= classify(name) %>Document = <%= classify(name) %>Model & Document;
-export const <%= classify(name) %>Schema = SchemaFactory.createForClass(<%= classify(name) %>Model);
-export const <%= classify(name) %>CollectionName = '<%= classify(name) %>';
+export type <%= nameUpperCamelCase %>Document = <%= nameUpperCamelCase %>Model & Document;
+export const <%= nameUpperCamelCase %>Schema = SchemaFactory.createForClass(<%= nameUpperCamelCase %>Model);
+export const <%= nameUpperCamelCase %>CollectionName = '<%= nameUpperCamelCase %>';

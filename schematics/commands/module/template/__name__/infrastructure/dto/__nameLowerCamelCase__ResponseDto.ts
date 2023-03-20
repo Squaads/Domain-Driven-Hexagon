@@ -1,8 +1,8 @@
 import { Expose, Transform } from 'class-transformer';
 import { ObjectId } from 'mongoose';
-import { <%= classify(name) %>Entity } from '../../domain/<%= name %>.entity';
+import { <%= nameUpperCamelCase %>Entity } from '../../domain/<%= nameLowerCamelCase %>.entity';
 
-export class <%= classify(name) %>ResponseDto extends <%= classify(name) %>Entity {
+export class <%= nameUpperCamelCase %>ResponseDto extends <%= nameUpperCamelCase %>Entity {
     private _id: ObjectId;
     @Expose()
     get id(): string {
