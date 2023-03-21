@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ModuleImportDeclarator = void 0;
 const core_1 = require("@angular-devkit/core");
 const path_solver_1 = require("@nestjs/schematics/dist/utils/path.solver");
+const strings_1 = require('@angular-devkit/core/src/utils/strings');
 class ModuleImportDeclarator {
     constructor(solver = new path_solver_1.PathSolver()) {
         this.solver = solver;
@@ -28,10 +29,10 @@ class ModuleImportDeclarator {
     computeRelativePath(options) {
         let importModulePath;
         if (options.type !== undefined) {
-            importModulePath = (0, core_1.normalize)(`/${options.path}/${options.name}/${options.name}.${options.type}`);
+            importModulePath = (0, core_1.normalize)(`/${options.path}/${options.name}/${(0, strings_1.camelize)(options.name)}.${options.type}`);
         }
         else {
-            importModulePath = (0, core_1.normalize)(`/${options.path}/${options.name}`);
+            importModulePath = (0, core_1.normalize)(`/${options.path}/${(0, strings_1.camelize)(options.name)}`);
         }
         return this.solver.relative(options.module, importModulePath);
     }
