@@ -1,0 +1,3 @@
+[submodule "src/modules/shared/infrastructure/adapters/persistence/mongoose-repository"]
+	path = src/modules/shared/infrastructure/adapters/persistence/mongoose-repository
+	url = git@github.com:erikeah/mongoose-repository.git
