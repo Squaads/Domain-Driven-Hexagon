@@ -48,21 +48,27 @@ export class ExampleModel implements ExampleInterface {
 
     @Prop({
         required: true,
-        type: mongoose.Schema.Types.Decimal128,
+        type: mongoose.Schema.Types.Number,
     })
-    minimumInvest;
+    minimumInvest: number;
 
     @Prop({
         required: true,
-        type: mongoose.Schema.Types.Decimal128,
+        type: mongoose.Schema.Types.Number,
     })
-    projectCost;
+    projectCost: number;
 
     @Prop({
         required: true,
-        type: mongoose.Schema.Types.Decimal128,
+        type: mongoose.Schema.Types.Number,
     })
-    totalInvest;
+    totalInvest: number;
+
+    @Prop({
+        required: true,
+        type: mongoose.Schema.Types.Number,
+    })
+    stars: number;
 
     @Prop({
         required: true,
