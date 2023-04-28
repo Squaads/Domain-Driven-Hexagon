@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { QueryParserResponse } from '../parse-response/queryParserResponse';
-import { QueryParserInterface } from '../queryParser.interface';
 import { RequestValidationResponse } from '../validation/requestValidationResponse';
+import { QueryParserInterface } from '../queryParserFactory.interface';
 
 export class MongoDBParserDriver implements QueryParserInterface {
     parseRequest(request: Request): QueryParserResponse {
