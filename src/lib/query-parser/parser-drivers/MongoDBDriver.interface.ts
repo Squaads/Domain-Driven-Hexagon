@@ -1,4 +1,4 @@
-import { MongoPopulations, MongoProjections } from './MongoDB.types';
+import { MongoPopulations, MongoProjections } from './MongoDBDriver.types';
 
 export interface MongoOptions {
     skip?: number;

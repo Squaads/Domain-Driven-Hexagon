@@ -2,8 +2,8 @@ import { Request } from 'express';
 import { QueryParserInterface, RequestQueryParams } from '../queryParserFactory.interface';
 import { RequestValidationResponse } from '../validation/requestValidationResponse';
 import { defaultValues } from './defaults';
-import { MongoOptions, MongooseParams } from './MongoDB.interface';
-import { MongoPopulations, MongoProjections } from './MongoDB.types';
+import { MongoOptions, MongooseParams } from './MongoDBDriver.interface';
+import { MongoPopulations, MongoProjections } from './MongoDBDriver.types';
 
 export class MongoDBParserDriver implements QueryParserInterface<MongooseParams | RequestValidationResponse> {
     private getOptions({ limit, page, sort, order }): MongoOptions {
