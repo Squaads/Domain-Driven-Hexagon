@@ -15,7 +15,7 @@ export class MongoDBParserDriver implements QueryParserInterface<MongooseParams 
         return { skip, limit: parsedLimit, sort: sortValue };
     }
 
-    private getPopulationOptions(populations): MongoPopulations {
+    private getPopulations(populations): MongoPopulations {
         if (!populations) {
             return [];
         }
@@ -44,7 +44,7 @@ export class MongoDBParserDriver implements QueryParserInterface<MongooseParams 
         const parsedOptions = this.getOptions(options);
 
         const populations = _embed;
-        const parsedPopulations = this.getPopulationOptions(populations);
+        const parsedPopulations = this.getPopulations(populations);
 
         const projections = _show;
         const parsedProjections = this.getProjection(projections);
