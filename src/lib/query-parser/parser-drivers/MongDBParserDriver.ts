@@ -27,6 +27,16 @@ export class MongoDBParserDriver implements QueryParserInterface<MongooseParams 
         }));
     }
 
+    private getProjection(projections): MongoProjections {
+        if (!projections) {
+            return '';
+        }
+        if (Array.isArray(projections)) {
+            return projections.join(' ');
+        }
+        return projections.split(',').join(' ');
+    }
+
     parseRequest(request: Request): MongooseParams {
         const { _page, _sort, _limit, _order, _show, _embed } = request.query as RequestQueryParams;
 
@@ -36,9 +46,13 @@ export class MongoDBParserDriver implements QueryParserInterface<MongooseParams 
         const populations = _embed;
         const parsedPopulations = this.getPopulationOptions(populations);
 
+        const projections = _show;
+        const parsedProjections = this.getProjection(projections);
+
         return {
             options: parsedOptions,
-			populations: parsedPopulations,
+            populations: parsedPopulations,
+            projections: parsedProjections,
         };
     }
 

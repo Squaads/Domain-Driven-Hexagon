@@ -9,4 +9,5 @@ export interface MongoOptions {
 export interface MongooseParams {
     options?: MongoOptions;
     populations?: MongoPopulations;
+    projections?: MongoProjections;
 }
