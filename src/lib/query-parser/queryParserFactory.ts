@@ -10,7 +10,7 @@ export enum ParsingStrategy {
 export class QueryParserFactory {
     strategy: ParsingStrategy;
 
-    getDriver(): QueryParserInterface {
+    getDriver(): QueryParserInterface<unknown> {
         switch (this.strategy) {
             case ParsingStrategy.MONGODB:
                 return new MongoDBParserDriver();
