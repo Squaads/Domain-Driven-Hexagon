@@ -1,3 +1,5 @@
+import { MongoPopulations, MongoProjections } from './MongoDB.types';
+
 export interface MongoOptions {
     skip?: number;
     limit?: number;
@@ -6,4 +8,5 @@ export interface MongoOptions {
 
 export interface MongooseParams {
     options?: MongoOptions;
+    populations?: MongoPopulations;
 }

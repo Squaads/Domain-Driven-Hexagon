@@ -3,6 +3,8 @@ import { QueryParserInterface, RequestQueryParams } from '../queryParserFactory.
 import { RequestValidationResponse } from '../validation/requestValidationResponse';
 import { defaultValues } from './defaults';
 import { MongoOptions, MongooseParams } from './MongoDB.interface';
+import { MongoPopulations, MongoProjections } from './MongoDB.types';
+
 export class MongoDBParserDriver implements QueryParserInterface<MongooseParams | RequestValidationResponse> {
     private getOptions({ limit, page, sort, order }): MongoOptions {
         const skip = parseInt(page ?? 0, 10) * parseInt(limit ?? defaultValues.pageSize, 10);
@@ -13,9 +15,17 @@ export class MongoDBParserDriver implements QueryParserInterface<MongooseParams 
         return { skip, limit: parsedLimit, sort: sortValue };
     }
 
-export class MongoDBParserDriver implements QueryParserInterface {
-    parseRequest(request: Request): QueryParserResponse {
-        const { page, orders, filters } = request.query;
+    private getPopulationOptions(populations): MongoPopulations {
+        if (!populations) {
+            return [];
+        }
+        if (Array.isArray(populations)) {
+            return populations.map(path => ({ path }));
+        }
+        return populations.split(',').map(field => ({
+            path: field,
+        }));
+    }
 
     parseRequest(request: Request): MongooseParams {
         const { _page, _sort, _limit, _order, _show, _embed } = request.query as RequestQueryParams;
@@ -23,10 +33,12 @@ export class MongoDBParserDriver implements QueryParserInterface {
         const options = { page: _page, sort: _sort, limit: _limit, order: _order };
         const parsedOptions = this.getOptions(options);
 
+        const populations = _embed;
+        const parsedPopulations = this.getPopulationOptions(populations);
 
         return {
             options: parsedOptions,
-
+			populations: parsedPopulations,
         };
     }
 
