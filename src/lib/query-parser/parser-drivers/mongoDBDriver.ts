@@ -1,12 +1,11 @@
 import { Request } from 'express';
 import { QueryParserInterface, RequestQueryParams } from '../queryParserFactory.interface';
 import { transforms } from '../utils/transforms';
-import { RequestValidationResponse } from '../validation/requestValidationResponse';
 import { defaultValues } from './defaults';
-import { MongoOptions, MongooseParams } from './MongoDBDriver.interface';
+import { MongoOptions, MongooseParams } from './mongoDBDriver.interface';
 import { MongoFilters, MongoFiltersQuery, MongoPopulations, MongoProjections } from './MongoDBDriver.types';
 
-export class MongoDBParserDriver implements QueryParserInterface<MongooseParams | RequestValidationResponse> {
+export class MongoDBParserDriver implements QueryParserInterface<MongooseParams> {
     private getOptions({ limit, page, sort, order }): MongoOptions {
         const skip = parseInt(page ?? 0, 10) * parseInt(limit ?? defaultValues.pageSize, 10);
         const parsedLimit = parseInt(limit ?? defaultValues.pageSize, 10);
@@ -87,11 +86,5 @@ export class MongoDBParserDriver implements QueryParserInterface<MongooseParams 
             projections: parsedProjections,
             filters: parsedFilters,
         };
-    }
-
-    validateRequest(request: Request): RequestValidationResponse {
-        console.log(request);
-
-        return RequestValidationResponse.createSuccessResponse();
     }
 }

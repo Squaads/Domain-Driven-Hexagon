@@ -1,4 +1,4 @@
-import { MongoPopulations, MongoProjections } from './MongoDBDriver.types';
+import { MongoFilters, MongoPopulations, MongoProjections } from './MongoDBDriver.types';
 
 export interface MongoOptions {
     skip?: number;
@@ -10,4 +10,5 @@ export interface MongooseParams {
     options?: MongoOptions;
     populations?: MongoPopulations;
     projections?: MongoProjections;
+    filters?: MongoFilters;
 }

@@ -1,9 +1,9 @@
 import { Request } from 'express';
 import { RequestQueryParams } from '../../queryParserFactory.interface';
+import { MongooseParams } from '../mongoDBDriver.interface';
 import { getOptionsMock } from './getOptions.mock';
 import { getPopulationsMock } from './getPopulation.mock';
 import { getProjectionMock } from './getProjection.mock';
-import { MongooseParams } from '../MongoDBDriver.interface';
 
 export const parseRequestMock = jest.fn((request: Request): MongooseParams => {
     const { _page, _sort, _limit, _order, _show, _embed } = request.query as RequestQueryParams;

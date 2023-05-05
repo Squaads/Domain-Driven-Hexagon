@@ -1,4 +1,4 @@
-import { MongoOptions } from "../MongoDBDriver.interface";
+import { MongoOptions } from "../mongoDBDriver.interface";
 import { defaultValues } from "../defaults";
 
 export const getOptionsMock = jest.fn(({ limit, page, sort, order }): MongoOptions => {
