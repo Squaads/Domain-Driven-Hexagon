@@ -5,7 +5,7 @@ import { getPopulationsMock } from './getPopulation.mock';
 import { getProjectionMock } from './getProjection.mock';
 import { MongooseParams } from '../MongoDBDriver.interface';
 
-export const parseRequestMock = jest.fn((request: Partial<Request>):MongooseParams => {
+export const parseRequestMock = jest.fn((request: Request): MongooseParams => {
     const { _page, _sort, _limit, _order, _show, _embed } = request.query as RequestQueryParams;
 
     const options = { page: _page, sort: _sort, limit: _limit, order: _order };
