@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { RequestQueryParams } from '../../queryParserFactory.interface';
+import { RequestQueryParams } from 'src/lib/query-parser/queryParserFactory.interface';
 import { MongooseParams } from '../mongoDBDriver.interface';
 import { getOptionsMock } from './getOptions.mock';
 import { getPopulationsMock } from './getPopulation.mock';

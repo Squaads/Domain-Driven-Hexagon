@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { MongoDBParserDriver } from './parser-drivers/mongoDBDriver';
 import { QueryParserInterface } from './queryParserFactory.interface';
+import { MongoDBParserDriver } from './drivers/mongoDBDriver/mongoDBDriver';
 
 export enum ParsingStrategy {
     MONGODB = 'mongoDB',

@@ -1,4 +1,4 @@
-import { MongoDBParserDriver } from './parser-drivers/mongoDBDriver';
+import { MongoDBParserDriver } from './drivers/mongoDBDriver/mongoDBDriver';
 import { ParsingStrategy, QueryParserFactory } from './queryParserFactory';
 
 describe('Returns of Instances', () => {

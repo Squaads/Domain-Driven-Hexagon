@@ -1,9 +1,9 @@
 import { Request } from 'express';
-import { QueryParserInterface, RequestQueryParams } from '../queryParserFactory.interface';
-import { transforms } from '../utils/transforms';
 import { defaultValues } from './defaults';
 import { MongoOptions, MongooseParams } from './mongoDBDriver.interface';
 import { MongoFilters, MongoFiltersQuery, MongoPopulations, MongoProjections } from './MongoDBDriver.types';
+import { QueryParserInterface, RequestQueryParams } from '../../queryParserFactory.interface';
+import { transforms } from '../../utils/transforms';
 
 export class MongoDBParserDriver implements QueryParserInterface<MongooseParams> {
     private getOptions({ limit, page, sort, order }): MongoOptions {

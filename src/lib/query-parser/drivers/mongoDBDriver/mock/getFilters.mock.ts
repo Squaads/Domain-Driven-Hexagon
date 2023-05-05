@@ -1,4 +1,4 @@
-import { transforms } from '../../utils/transforms';
+import { transforms } from 'src/lib/query-parser/utils/transforms';
 import { MongoFilters, MongoFiltersQuery } from '../MongoDBDriver.types';
 
 export const getFiltersMock = jest.fn((filters: { [key: string]: string }): MongoFilters => {
