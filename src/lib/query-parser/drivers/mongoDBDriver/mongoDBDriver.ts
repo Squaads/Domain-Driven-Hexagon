@@ -1,9 +1,15 @@
 import { Request } from 'express';
-import { defaultValues } from './defaults';
-import { MongoOptions, MongooseParams } from './mongoDBDriver.interface';
-import { MongoFilters, MongoFiltersQuery, MongoPopulations, MongoProjections } from './MongoDBDriver.types';
 import { QueryParserInterface, RequestQueryParams } from '../../queryParserFactory.interface';
 import { transforms } from '../../utils/transforms';
+import { defaultValues } from './defaults';
+import { MongoOptions, MongooseParams } from './mongoDBDriver.interface';
+import {
+    MongoFilters,
+    MongoFiltersArray,
+    MongoFiltersQuery,
+    MongoPopulations,
+    MongoProjections,
+} from './MongoDBDriver.types';
 
 export class MongoDBParserDriver implements QueryParserInterface<MongooseParams> {
     private getOptions({ limit, page, sort, order }): MongoOptions {
@@ -37,36 +43,53 @@ export class MongoDBParserDriver implements QueryParserInterface<MongooseParams>
         return projections.split(',').join(' ');
     }
 
-    private getFilters(filters: { [key: string]: string }): MongoFilters {
-        if (!filters) {
+    private getFilters(filters): MongoFilters {
+        const filtersArray = this.getFiltersArray(filters);
+        if (!filtersArray || filtersArray.length === 0) {
             return {};
         }
+        return { $and: filtersArray };
+    }
 
-        const filtersArray = Object.entries(filters)
-            .filter(([key]) => !key.startsWith('_'))
-            .map(([key, value]) => this.getFilterQuery(key, value));
-
-        return filtersArray.length ? { $and: filtersArray } : {};
+    private getFiltersArray(filters): MongoFiltersArray {
+        return Object.entries(filters).reduce((filterQuery, [key, value]) => {
+            let newKey = key;
+            if (newKey.includes('_id')) newKey = key.replace(/^_/, '');
+            if (newKey.startsWith('_')) {
+                return filterQuery;
+            }
+            return [...filterQuery, this.getFilterQuery(newKey, value as string)];
+        }, [] as { [key: string]: any }[]);
     }
 
     private getFilterQuery(key: string, value: string): MongoFiltersQuery {
-        const [keyName = key, operator] = key.split('_');
-        const query = {};
+        const [keyName, operator] = key.split('_');
 
-        if (operator === 'like') {
-            query[keyName] = { $regex: value, $options: 'i' };
-        } else if (operator === 'in') {
-            const [parentKey, childKey] = keyName.split('.');
-            query[parentKey] = { $elemMatch: { [childKey]: value } };
-        } else {
-            query[keyName] = { [`$${operator || 'eq'}`]: transforms(value) };
+        const operatorMapping = {
+            like: { [keyName]: { $regex: value, $options: 'i' } },
+            in: () => {
+                const keyNameArray = keyName.split('.');
+                if (keyNameArray.length > 1) {
+                    return {
+                        [keyNameArray[0]]: { $elemMatch: { [keyNameArray[1]]: value } },
+                    };
+                }
+                return { [keyName]: { $in: value.split(',') } };
+            },
+            undefined: { [keyName]: { $eq: transforms(value) } },
+            default: { [keyName]: { [`$${operator}`]: transforms(value) } },
+        };
+
+        if (keyName === 'id') {
+            operatorMapping.in = () => ({ _id: { $in: value.split(',') } });
         }
 
-        return query;
+        const query = operatorMapping[operator] || operatorMapping.default;
+        return typeof query === 'function' ? query() : query;
     }
 
     parseRequest(request: Request): MongooseParams {
-        const { _page, _sort, _limit, _order, _show, _embed, _filters } = request.query as RequestQueryParams;
+        const { _page, _sort, _limit, _order, _show, _embed } = request.query as RequestQueryParams ?? {};
 
         const options = { page: _page, sort: _sort, limit: _limit, order: _order };
         const parsedOptions = this.getOptions(options);
@@ -77,7 +100,7 @@ export class MongoDBParserDriver implements QueryParserInterface<MongooseParams>
         const projections = _show;
         const parsedProjections = this.getProjection(projections);
 
-        const filters = _filters;
+        const filters = request.query as { [key: string]: string };
         const parsedFilters = this.getFilters(filters);
 
         return {

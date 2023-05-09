@@ -1,29 +1,47 @@
 import { transforms } from 'src/lib/query-parser/utils/transforms';
-import { MongoFilters, MongoFiltersQuery } from '../MongoDBDriver.types';
+import { MongoFilters, MongoFiltersArray, MongoFiltersQuery } from '../MongoDBDriver.types';
 
-export const getFiltersMock = jest.fn((filters: { [key: string]: string }): MongoFilters => {
-    if (!filters) {
+export const getFiltersMock = (filters): MongoFilters => {
+    const filtersArray = getFiltersArrayMock(filters);
+    if (!filtersArray || filtersArray.length === 0) {
         return {};
     }
-    const filtersArray = Object.entries(filters)
-        .filter(([key]) => !key.startsWith('_'))
-        .map(([key, value]) => getFilterQueryMock(key, value));
+    return { $and: filtersArray };
+};
 
-    return filtersArray.length ? { $and: filtersArray } : {};
-});
+export const getFiltersArrayMock = (filters): MongoFiltersArray => {
+    return Object.entries(filters).reduce((filterQuery, [key, value]) => {
+        let newKey = key;
+        if (newKey.includes('_id')) newKey = key.replace(/^_/, '');
+        if (newKey.startsWith('_')) {
+            return filterQuery;
+        }
+        return [...filterQuery, getFilterQueryMock(newKey, value as string)];
+    }, [] as { [key: string]: any }[]);
+};
 
-export const getFilterQueryMock = jest.fn((key: string, value: string): MongoFiltersQuery => {
-    const [keyName = key, operator] = key.split('_');
-    const query = {};
+export const getFilterQueryMock = (key: string, value: string): MongoFiltersQuery => {
+    const [keyName, operator] = key.split('_');
 
-    if (operator === 'like') {
-        query[keyName] = { $regex: value, $options: 'i' };
-    } else if (operator === 'in') {
-        const [parentKey, childKey] = keyName.split('.');
-        query[parentKey] = { $elemMatch: { [childKey]: value } };
-    } else {
-        query[keyName] = { [`$${operator || 'eq'}`]: transforms(value) };
+    const operatorMapping = {
+        like: { [keyName]: { $regex: value, $options: 'i' } },
+        in: () => {
+            const keyNameArray = keyName.split('.');
+            if (keyNameArray.length > 1) {
+                return {
+                    [keyNameArray[0]]: { $elemMatch: { [keyNameArray[1]]: value } },
+                };
+            }
+            return { [keyName]: { $in: value.split(',') } };
+        },
+        undefined: { [keyName]: { $eq: transforms(value) } },
+        default: { [keyName]: { [`$${operator}`]: transforms(value) } },
+    };
+
+    if (keyName === 'id') {
+        operatorMapping.in = () => ({ _id: { $in: value.split(',') } });
     }
 
-    return query;
-});
+    const query = operatorMapping[operator] || operatorMapping.default;
+    return typeof query === 'function' ? query() : query;
+};

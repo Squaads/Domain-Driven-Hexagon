@@ -1,9 +1,9 @@
 import { Request } from 'express';
-import { getFilterQueryMock, getFiltersMock } from './mock/getFilters.mock';
 import { getOptionsMock } from './mock/getOptions.mock';
 import { getPopulationsMock } from './mock/getPopulation.mock';
 import { getProjectionMock } from './mock/getProjection.mock';
 import { parseRequestMock } from './mock/parseRequest.mock';
+import { getFilterQueryMock, getFiltersMock } from './mock/getFilters.mock';
 
 describe('getOptions method', () => {
     it('should be return a MongoOption object with default values', () => {
@@ -64,7 +64,7 @@ describe('getProjection method', () => {
 
 describe('getFilters method', () => {
     it('should be return an empty object', () => {
-        const filters = undefined;
+        const filters = "";
         const parsedFilters = getFiltersMock(filters);
 
         expect(parsedFilters).toEqual({});

@@ -7,7 +7,6 @@ export interface RequestQueryParams {
     _order?: string;
     _show?: string;
     _embed?: string;
-    _filters?: { [key: string]: string };
 }
 
 export interface QueryParserInterface<T> {
