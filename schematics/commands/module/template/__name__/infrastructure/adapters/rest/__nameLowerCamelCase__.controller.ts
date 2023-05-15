@@ -4,6 +4,7 @@ import {
     Controller,
     Get,
     Post,
+	Req,
     SerializeOptions,
     UseInterceptors,
 } from '@nestjs/common';
@@ -18,6 +19,7 @@ import {
 import { Create<%= nameUpperCamelCase %> } from 'src/modules/<%= name %>/application/use-cases/create<%= nameUpperCamelCase %>.usecase';
 import { GetAll<%= nameUpperCamelCase %>s } from 'src/modules/<%= name %>/application/use-cases/getAll<%= nameUpperCamelCase %>s.usecase';
 import { <%= nameUpperCamelCase %>ResponseDto } from '../../dto/<%= nameLowerCamelCase %>ResponseDto';
+import { ParsingStrategy, QueryParserFactory } from 'src/lib/query-parser/queryParserFactory';
 
 const DEFAULT_SERIALIZER_OPTIONS: ClassTransformOptions = {
     strategy: 'excludeAll',
@@ -32,15 +34,23 @@ export class <%= nameUpperCamelCase %>Controller {
     private create<%= nameUpperCamelCase %>UseCase: RestAdapterPortCreate<%= nameUpperCamelCase %>Interface;
     private getAll<%= nameUpperCamelCase %>sUseCase: RestAdapterPortGetAll<%= nameUpperCamelCase %>sInterface;
 
-    constructor(create<%= nameUpperCamelCase %>UseCase: Create<%= nameUpperCamelCase %>, getAll<%= nameUpperCamelCase %>sUseCase: GetAll<%= nameUpperCamelCase %>s) {
+    constructor(
+		create<%= nameUpperCamelCase %>UseCase: Create<%= nameUpperCamelCase %>,
+		getAll<%= nameUpperCamelCase %>sUseCase: GetAll<%= nameUpperCamelCase %>s,
+		readonly queryParserFactory: QueryParserFactory,
+		) {
         this.create<%= nameUpperCamelCase %>UseCase = create<%= nameUpperCamelCase %>UseCase;
         this.getAll<%= nameUpperCamelCase %>sUseCase = getAll<%= nameUpperCamelCase %>sUseCase;
     }
 
     @Get()
-    async getAll<%= nameUpperCamelCase %>s(): Promise<<%= nameUpperCamelCase %>ResponseDto[]> {
+    async getAll<%= nameUpperCamelCase %>s(@Req() request): Promise<<%= nameUpperCamelCase %>ResponseDto[]> {
         try {
-            const <%= nameLowerCamelCase %>sCollection = await this.getAll<%= nameUpperCamelCase %>sUseCase.handler();
+			this.queryParserFactory.strategy = ParsingStrategy.MONGODB;
+            const driver = this.queryParserFactory.getDriver();
+            const queryParsed = driver.parseRequest(request);
+
+            const <%= nameLowerCamelCase %>sCollection = await this.getAll<%= nameUpperCamelCase %>sUseCase.handler(queryParsed);
             return <%= nameLowerCamelCase %>sCollection.map(<%= nameLowerCamelCase %> => new <%= nameUpperCamelCase %>ResponseDto(<%= nameLowerCamelCase %>));
         } catch (error) {
             throw new Error(error.message);

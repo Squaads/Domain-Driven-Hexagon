@@ -11,31 +11,43 @@ import { IBaseRepository } from './base.repository.interface';
  * 100 percent.
  */
 
+/**
+ * date: 12/05/2023
+ * author: David Medina
+ * comment: deleted QueryParserService now we are using the queryParserFactory from the lib
+ */
+
 @Injectable()
 export class BaseMongoose<T> implements IBaseRepository {
     public model: Model<T>;
-    // private queryParserService: QueryParserService;
-
-    // constructor() {
-    //     this.queryParserService = new QueryParserService();
-    // }
 
     async create(createDto: any): Promise<T> {
         const newEntity = await this.model.create(createDto);
         return newEntity;
     }
 
-    async findAll(): Promise<T[]> {
-        // const { filters, projections, populations, options } = this.queryParserService.getMongooseParams();
-        // const entities =
-        //     populations && populations.length !== 0
-        //         ? await this.model
-        //               .find(filters as any, projections, options)
-        //               .populate(populations)
-        //               .exec()
-        //         : await this.model.find(filters as any, projections, options).exec();
-        // return entities;
-        const entities = await this.model.find().lean().exec();
+    async findAll(queryParsed): Promise<T[]> {
+        const { options, populations, projections, filters } = queryParsed;
+        let queryBuilder = this.model.find();
+
+        if (options) {
+            const { limit, skip, sort } = options;
+            queryBuilder = queryBuilder.limit(limit).skip(skip).sort(sort);
+        }
+
+        if (populations) {
+            queryBuilder = queryBuilder.populate(populations) as any;
+        }
+
+        if (projections) {
+            queryBuilder = queryBuilder.select(projections);
+        }
+
+        if (filters) {
+            queryBuilder = queryBuilder.where(filters);
+        }
+
+        const entities = await queryBuilder.lean().exec();
         return entities as unknown as T[];
     }
 

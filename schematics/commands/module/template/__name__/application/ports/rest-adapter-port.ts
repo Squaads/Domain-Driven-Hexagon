@@ -6,5 +6,5 @@ export interface RestAdapterPortCreate<%= nameUpperCamelCase %>Interface {
 }
 
 export interface RestAdapterPortGetAll<%= nameUpperCamelCase %>sInterface {
-    handler(): Promise<<%= nameUpperCamelCase %>Entity[]>;
+    handler(queryParsed): Promise<<%= nameUpperCamelCase %>Entity[]>;
 }

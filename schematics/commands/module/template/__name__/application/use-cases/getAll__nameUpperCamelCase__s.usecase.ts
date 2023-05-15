@@ -11,9 +11,9 @@ export class GetAll<%= nameUpperCamelCase %>s implements RestAdapterPortGetAll<%
         this.<%= nameLowerCamelCase %>Repository = <%= nameLowerCamelCase %>Repository;
     }
 
-    async handler(): Promise<<%= nameUpperCamelCase %>Entity[]> {
+    async handler(queryParsed): Promise<<%= nameUpperCamelCase %>Entity[]> {
         try {
-            const <%= nameLowerCamelCase %>sCollection = await this.<%= nameLowerCamelCase %>Repository.findAll();
+            const <%= nameLowerCamelCase %>sCollection = await this.<%= nameLowerCamelCase %>Repository.findAll(queryParsed);
             return <%= nameLowerCamelCase %>sCollection.map(<%= nameLowerCamelCase %> => new <%= nameUpperCamelCase %>Entity(<%= nameLowerCamelCase %>));
         } catch (error) {
             throw new Error(error.message);

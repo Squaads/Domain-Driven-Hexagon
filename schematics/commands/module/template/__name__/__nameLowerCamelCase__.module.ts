@@ -6,6 +6,7 @@ import { GetAll<%= nameUpperCamelCase %>s } from './application/use-cases/getAll
 import { <%= nameUpperCamelCase %>Repository } from './infrastructure/adapters/persistence/<%= nameLowerCamelCase %>.repository';
 import { <%= nameUpperCamelCase %>CollectionName, <%= nameUpperCamelCase %>Schema } from './infrastructure/adapters/persistence/<%= nameLowerCamelCase %>.schema';
 import { <%= nameUpperCamelCase %>Controller } from './infrastructure/adapters/rest/<%= nameLowerCamelCase %>.controller';
+import { QueryParserFactory } from 'src/lib/query-parser/queryParserFactory';
 
 const <%= nameSnakeCase.toUpperCase() %>_USE_CASES_PROVIDERS = [Create<%= nameUpperCamelCase %>, GetAll<%= nameUpperCamelCase %>s];
 @Module({
@@ -19,7 +20,7 @@ const <%= nameSnakeCase.toUpperCase() %>_USE_CASES_PROVIDERS = [Create<%= nameUp
         ]),
     ],
     controllers: [<%= nameUpperCamelCase %>Controller],
-    providers: [<%= nameUpperCamelCase %>Repository, BaseMongoose, ...<%= nameSnakeCase.toUpperCase() %>_USE_CASES_PROVIDERS],
+    providers: [<%= nameUpperCamelCase %>Repository, BaseMongoose,QueryParserFactory, ...<%= nameSnakeCase.toUpperCase() %>_USE_CASES_PROVIDERS],
     exports: [<%= nameUpperCamelCase %>Repository, BaseMongoose],
 })
 export class <%= nameUpperCamelCase %>Module{}
