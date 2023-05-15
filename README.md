@@ -1,5 +1,11 @@
 # API 🛰️
 
+## Description
+Nest template with a basic DDD approach.
+
+* [Architecture overview and explanation](./documentation/about/about.md)
+* [Template documentation](./documentation/api/api.md)
+
 ## CORE SCRIPTS :hammer:
 
 -   `npm run start:local` - Runs the app in local mode inside Docker.

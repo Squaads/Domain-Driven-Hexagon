@@ -1,8 +1,5 @@
-# Domain-Driven-Hexagon Template
 
-Nest template with a basic DDD approach.
-
-## Architecture overview :question:
+# Architecture overview :question:
 
 ![Architecture overview](./assets/architecture-overview.png)
 
