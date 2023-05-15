@@ -5,5 +5,5 @@ export interface RepositoryPortCreateInterface {
     create(<%= nameLowerCamelCase %>: Create<%= nameUpperCamelCase %>Dto): Promise<<%= nameUpperCamelCase %>Model>;
 }
 export interface RepositoryPortGetAllInterface {
-    findAll(): Promise<<%= nameUpperCamelCase %>Model[]>;
+    findAll(queryParsed): Promise<<%= nameUpperCamelCase %>Model[]>;
 }
