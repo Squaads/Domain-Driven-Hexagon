@@ -22,7 +22,7 @@ export class BaseMongoose<T> implements IBaseRepository {
 
     async create(createDto: any): Promise<T> {
         const newEntity = await this.model.create(createDto);
-        return newEntity;
+        return newEntity.toObject();
     }
 
     async findAll(): Promise<T[]> {
