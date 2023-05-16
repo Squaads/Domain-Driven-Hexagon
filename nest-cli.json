@@ -1,4 +1,4 @@
 {
-    "collection": "./schematics/collection.json",
+    "collection": "../../../../../schematics/collection.json",
     "sourceRoot": "src"
 }
